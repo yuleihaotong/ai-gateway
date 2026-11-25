@@ -1,8 +1,27 @@
 {
   "name": "ai-routing-gateway",
   "version": "0.1.0",
-  "private": true,
   "description": "AI 模型动态路由网关：主备模型无缝切换 + 协议/流式适配 + 配置热重载",
+  "license": "MIT",
+  "author": "yuleihaotong",
+  "homepage": "https://github.com/yuleihaotong/ai-gateway#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuleihaotong/ai-gateway.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuleihaotong/ai-gateway/issues"
+  },
+  "keywords": [
+    "llm",
+    "gateway",
+    "failover",
+    "sse",
+    "openai",
+    "anthropic",
+    "mcp",
+    "typescript"
+  ],
   "type": "module",
   "bin": {
     "ai-gateway": "dist/src/index.js"
@@ -13,10 +32,11 @@
     "start": "node dist/src/index.js serve",
     "mcp": "node dist/src/index.js mcp",
     "check": "node dist/src/index.js check",
-    "test": "node --test dist/test/"
+    "test": "node --test \"dist/test/*.test.js\"",
+    "probe": "node scripts/probe-pacing.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
