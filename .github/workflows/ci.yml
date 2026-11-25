@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # 类型检查与构建是同一件事：tsc 是唯一的构建工具
+      - run: pnpm build
+
+      - run: pnpm test
+
+      # 配置自检：证明 config/gateway.example.json 在键迁移之后仍然可加载
+      - name: config check
+        env:
+          AI_GATEWAY_CONFIG: ./config/gateway.example.json
+          CODEX_API_KEY: dummy
+          DEEPSEEK_API_KEY: dummy
+          GLM_API_KEY: dummy
+          ANTHROPIC_API_KEY: dummy
+        run: node dist/src/index.js check

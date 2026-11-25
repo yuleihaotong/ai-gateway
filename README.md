@@ -1,5 +1,8 @@
 # AI 模型动态路由网关
 
+[![ci](https://github.com/yuleihaotong/ai-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/yuleihaotong/ai-gateway/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 一个**零运行时依赖**的 TypeScript 网关：对外暴露 OpenAI 兼容接口（或作为 MCP Server），对内维护一条
 「主模型 → 备用池」的降级链。主模型 429 / 额度耗尽 / key 失效 / 超时 / **流被掐断** 时，网关自己换家，
 调用方完全无感知。
