@@ -1,0 +1,63 @@
+{
+  "listen": { "host": "127.0.0.1", "port": 8787 },
+  "defaultModel": "gpt-5-codex",
+  "aliases": {
+    "gpt-4o": "gpt-5-codex"
+  },
+  "limits": {
+    "requestTimeoutMs": 60000,
+    "firstTokenTimeoutMs": 20000,
+    "idleTimeoutMs": 30000,
+    "totalTimeoutMs": 300000,
+    "commitMode": "instant",
+    "commitChars": 24,
+    "commitDelayMs": 400,
+    "emitRouteComments": false,
+    "maxBodyBytes": 8388608
+  },
+  "policy": {
+    "maxAttempts": 4,
+    "abortOnBadRequest": true,
+    "salvageOnStreamBreak": true,
+    "salvageInstruction": "上一条回复在上游服务中断处被截断。请严格从中断处继续输出剩余内容，不要重复已输出的部分，不要添加任何解释或前缀。"
+  },
+  "models": {
+    "gpt-5-codex": {
+      "strategy": "priority",
+      "targets": [
+        {
+          "id": "codex-main",
+          "adapter": "codex",
+          "baseUrl": "https://api.openai.com/v1",
+          "apiKey": "${CODEX_API_KEY}",
+          "model": "gpt-5-codex",
+          "timeoutMs": 60000,
+          "tags": ["tools", "reasoning"]
+        },
+        {
+          "id": "deepseek-backup",
+          "adapter": "openai",
+          "baseUrl": "https://api.deepseek.com/v1",
+          "apiKey": "${DEEPSEEK_API_KEY}",
+          "model": "deepseek-chat",
+          "tags": ["tools"]
+        },
+        {
+          "id": "glm-backup",
+          "adapter": "openai",
+          "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
+          "apiKey": "${GLM_API_KEY}",
+          "model": "glm-4.6"
+        },
+        {
+          "id": "claude-backup",
+          "adapter": "anthropic",
+          "baseUrl": "https://api.anthropic.com/v1",
+          "apiKey": "${ANTHROPIC_API_KEY}",
+          "model": "claude-sonnet-4-5",
+          "headers": { "anthropic-version": "2023-06-01" }
+        }
+      ]
+    }
+  }
+}

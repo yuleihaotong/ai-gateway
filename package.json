@@ -1,0 +1,25 @@
+{
+  "name": "ai-routing-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 模型动态路由网关：主备模型无缝切换 + 协议/流式适配 + 配置热重载",
+  "type": "module",
+  "bin": {
+    "ai-gateway": "dist/src/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/src/index.js serve",
+    "mcp": "node dist/src/index.js mcp",
+    "check": "node dist/src/index.js check",
+    "test": "node --test dist/test/"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
